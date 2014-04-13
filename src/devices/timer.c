@@ -89,6 +89,13 @@ timer_elapsed (int64_t then)
 void
 timer_sleep (int64_t ticks) 
 {
+  /*
+   * 1. Add thread to timer queue, with wakeup time
+   * 2. block thread
+   * 3. check if time to wake up, if not, add back on queue block again
+   */
+  //maybe the queue should actually be sorted or a heap or something? probably that can come later, if it's important
+
   int64_t start = timer_ticks ();
 
   ASSERT (intr_get_level () == INTR_ON);
